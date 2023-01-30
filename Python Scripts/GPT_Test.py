@@ -1,6 +1,8 @@
 import openai
+import os
 
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_KEY")
+print(os.getenv("OPENAI_KEY"))
 
 def generate_response(prompt):
     model_engine = "text-davinci-003"

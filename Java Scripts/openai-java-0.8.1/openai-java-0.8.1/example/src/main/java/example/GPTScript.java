@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 class GPTScript {
     public static void main(String... args) {
-        // String token = System.getenv("OPENAI_TOKEN"); // trying to get the openai token from system
-        OpenAiService service = new OpenAiService("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");
+        String token = System.getenv("OPENAI_TOKEN"); // create a system variable 'OPENAI_TOKEN with the value of your API key'
+        OpenAiService service = new OpenAiService(token);
+
         Scanner sc = new Scanner(System.in);
 
         try {
@@ -25,10 +26,8 @@ class GPTScript {
                 }
 
                 CompletionRequest completionRequest = CompletionRequest.builder()
-                        // .model("ada")
                         .model("text-davinci-003")
                         .prompt(userInput)
-                        // .echo(true)
                         .user("testing")
                         .maxTokens(1024)
                         .temperature(0.5)
