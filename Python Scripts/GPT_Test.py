@@ -44,7 +44,7 @@ while True:
     if len(splitResponse) == 1:
         print(Fore.RED + "LOG: [ responseArgs=1 ]" + Fore.WHITE)
 
-        print("Chatbot:", response)
+        print("Pepper:", response)
     elif len(splitResponse) == 2:
         print(Fore.RED + "LOG: [ responseArgs=2 ]" + Fore.WHITE)
 
@@ -52,8 +52,8 @@ while True:
         if isSentence == True:
             print(Fore.RED + "LOG: [ isSentence=True ]" + Fore.WHITE)
 
-            print("Chatbot:", response)
+            print("Pepper:", response)
         elif isSentence == False:
             print(Fore.RED + "LOG: [ isSentence=False ]" + Fore.WHITE)
 
-            print("I do not understand. Can you please repeat what you said?")
+            print("Pepper: I do not understand. Can you please repeat what you said?")
