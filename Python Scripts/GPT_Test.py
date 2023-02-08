@@ -35,9 +35,6 @@ while True:
     if user_input.lower() == "exit":
         break
     response = generate_response(user_input)
-    
-
-
 
     splitResponse = response.split("\n", maxsplit=1)
     if len(splitResponse) == 1:
