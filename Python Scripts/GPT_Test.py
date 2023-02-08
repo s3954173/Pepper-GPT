@@ -28,6 +28,8 @@ def sentenceCheck(inputSentence):
         isSentence = False
     elif (charList[0]+charList[1]+charList[2]).lower() == "yes":
         isSentence = True
+    else:
+        isSentence = False
     return isSentence
 
 while True:
@@ -52,5 +54,4 @@ while True:
         elif isSentence == False:
             print(Fore.RED + "LOG: [ isSentence=False ]" + Fore.WHITE)
 
-            print("[ " + splitResponse[0] + " ]")
-            print("[ " + splitResponse[1] + " ]")
+            print("I do not understand. Can you please repeat what you said?")
