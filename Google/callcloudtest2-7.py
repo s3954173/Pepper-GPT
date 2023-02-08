@@ -2,7 +2,7 @@ import urllib
 import urllib2
 
 url = 'https://australia-southeast2-softbank-376302.cloudfunctions.net/hello-world'
-values = {"name":"Michael Foord"}
+values = {"name":"Sasha"}
 
 url_values = urllib.urlencode(values)
 #req = urllib2.Request(url, data)
