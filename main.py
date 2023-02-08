@@ -24,13 +24,14 @@ def callgpt(request):
        message = request_args['message']
    else:
        message = "I'm sorry could you repeat that again?"
-   return message
+   translated_message = translate(message, 'japanese')
+   return translated_message
 
 def translate(phrase, language):
     model_engine = "test-davinci-003"
     prompt = (f"Translate {phrase} into {language}")
 
-     completions = openai.Completion.create(
+    completions = openai.Completion.create(
              engine=model_engine,
              prompt=prompt,
              max_tokens=1024,
