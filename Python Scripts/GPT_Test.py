@@ -1,5 +1,7 @@
 import openai
 import os
+import colorama
+from colorama import Fore
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -39,19 +41,19 @@ while True:
 
     splitResponse = response.split("\n", maxsplit=1)
     if len(splitResponse) == 1:
-        print(1)
+        print(Fore.RED + "LOG: [ responseArgs=1 ]" + Fore.WHITE)
 
         print("Chatbot:", response)
     elif len(splitResponse) == 2:
-        print(2)
+        print(Fore.RED + "LOG: [ responseArgs=2 ]" + Fore.WHITE)
 
         isSentence = sentenceCheck(splitResponse[0])
         if isSentence == True:
-            print("isSentence=True")
+            print(Fore.RED + "LOG: [ isSentence=True ]" + Fore.WHITE)
 
             print("Chatbot:", response)
         elif isSentence == False:
-            print("isSentence=False")
+            print(Fore.RED + "LOG: [ isSentence=False ]" + Fore.WHITE)
 
             print("[ " + splitResponse[0] + " ]")
             print("[ " + splitResponse[1] + " ]")
