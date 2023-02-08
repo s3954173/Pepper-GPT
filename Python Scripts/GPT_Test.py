@@ -29,6 +29,8 @@ def sentenceCheck(inputSentence):
     elif (charList[0]+charList[1]+charList[2]).lower() == "yes":
         isSentence = True
     else:
+        print(Fore.RED + "LOG: [ sentenceCheckResponse=" + 
+        (charList[0]+charList[1]+charList[2]).lower() +" ]" + Fore.WHITE)
         isSentence = False
     return isSentence
 
