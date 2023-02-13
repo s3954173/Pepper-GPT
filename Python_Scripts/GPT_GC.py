@@ -2,6 +2,7 @@ import openai
 import os
 import colorama
 from colorama import Fore
+import sys
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -22,7 +23,7 @@ def generate_response(prompt):
     return message.strip()
 
 def sentenceCheck(inputSentence):
-    aiSentenceCheck = generate_response("Is " + splitResponse[0] + " a sentence?")
+    aiSentenceCheck = generate_response("Is " + inputSentence + " a sentence?")
     charList = list(aiSentenceCheck)
     if (charList[0]+charList[1]).lower() == "no":
         isSentence = False
@@ -35,12 +36,7 @@ def sentenceCheck(inputSentence):
     return isSentence
 
 while True:
-    user_input = input("User: ")
-    if user_input.lower() == "exit":
-        break
-    response = generate_response(user_input)
-
-    splitResponse = response.split("\n", maxsplit=1)
+    splitResponse = sys.argv[1].split("\n", maxsplit=1)
     if len(splitResponse) == 1:
         print(Fore.RED + "LOG: [ responseArgs=1 ]" + Fore.WHITE)
 
