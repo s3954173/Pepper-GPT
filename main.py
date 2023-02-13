@@ -17,18 +17,19 @@ def callgpt(request):
     request_args = request.args
 
     if request_json and 'message' in request_json:
-       openai_key = request_json['openai_api_key']
+       openai_key = request_json['key']
        message = request_json['message']
     elif request_args and 'message' in request_args:
-       openai_key = request_args['openai_api_key']
+       openai_key = request_args['key']
        message = request_args['message']
     else:
        message = "I'm sorry could you repeat that again?"
+       openai_key = request_args['key']
        
     # GPT Translate
-    openai.api.key = openai_key
+    openai.api_key = openai_key
     language = "japanese"		
-    model_engine = "test-davinci-003"
+    model_engine = "text-davinci-003"
     prompt = f"Translate {message} into {language}."
 
     completions = openai.Completion.create(
