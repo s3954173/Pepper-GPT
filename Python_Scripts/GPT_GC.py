@@ -23,7 +23,7 @@ def generate_response(prompt):
     return message.strip()
 
 def sentenceCheck(inputSentence):
-    aiSentenceCheck = generate_response("Is " + splitResponse[0] + " a sentence?")
+    aiSentenceCheck = generate_response("Is " + inputSentence + " a sentence?")
     charList = list(aiSentenceCheck)
     if (charList[0]+charList[1]).lower() == "no":
         isSentence = False
