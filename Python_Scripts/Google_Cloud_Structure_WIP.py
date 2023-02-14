@@ -5,6 +5,23 @@ import time
 
 ########################               Functions used               ############################
 
+def open_log():
+    t = time.localtime()
+    current_time = time.strftime("%H-%M-%S", t)
+    log_file = 'log_from_' + current_time + '.txt'
+    with open(log_file, 'w') as f:
+        f.write("LOG from run starting: " + current_time)
+        f.write("\n")
+    f.close()
+    return log_file
+
+def log(log_file, message):
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+    with open(log_file, 'a') as f:
+        f.write(current_time + " [LOG: " + message + "]\n")
+    f.close()
+
 def generate_response(prompt):
         model_engine = "text-davinci-003"
         prompt = (f"{prompt}")
@@ -19,6 +36,7 @@ def generate_response(prompt):
         )
 
         message = completions.choices[0].text
+        log("completion generated...")
         return message.strip()
 
 def sentenceCheck(inputSentence):
@@ -37,27 +55,25 @@ def sentenceCheck(inputSentence):
 def process_response(response):
     splitResponse = response.split("\n", maxsplit=1)
     if len(splitResponse) == 1:
-        print(Fore.RED + "LOG: [ responseArgs=1 ]" + Fore.WHITE)
+        log("responseArgs=1\n")
+        # print(Fore.RED + "LOG: [ responseArgs=1 ]" + Fore.WHITE)
 
         print("Pepper:", response)
     elif len(splitResponse) == 2:
-        print(Fore.RED + "LOG: [ responseArgs=2 ]" + Fore.WHITE)
+        log("responseArgs=2")
+        # print(Fore.RED + "LOG: [ responseArgs=2 ]" + Fore.WHITE)
 
         isSentence = sentenceCheck(splitResponse[0])
         if isSentence == True:
-            print(Fore.RED + "LOG: [ isSentence=True ]" + Fore.WHITE)
+            log("isSentence=True")
+            # print(Fore.RED + "LOG: [ isSentence=True ]" + Fore.WHITE)
 
             print("Pepper:", response)
         elif isSentence == False:
-            print(Fore.RED + "LOG: [ isSentence=False ]" + Fore.WHITE)
+            log("isSentence=False")
+            # print(Fore.RED + "LOG: [ isSentence=False ]" + Fore.WHITE)
 
             print("Pepper: I do not understand. Can you please repeat what you said?")
-
-def log(message):
-    t = time.localtime()
-    current_time = time.strftime("%H:%M:%S", t)
-    with open('log.txt', 'w') as f:
-        f.write(current_time + " [LOG: " + message + "]")
 
 #################################################################################################
 
@@ -67,6 +83,7 @@ while True:
     speech_input = input("Speech input: ") # use naoqi to 'listen' and convert speech to text
     if speech_input.lower() == "exit": # only used for cli
         break
+    log("speech_input='" + speech_input + "'")
 
     ###############################################################################################
 
