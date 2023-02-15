@@ -4,6 +4,7 @@ import urllib2
 import json
 import naoqi
 from naoqi import ALProxy
+
 api_key = os.getenv("OPENAI_API_KEY")
 tts = ALProxy("ALTextToSpeech", "192.168.60.80", 9559)
 tts = ALProxy("ALSpeechToText", "192.168.60.80", 9559) # might not exist
@@ -22,8 +23,6 @@ while True:
         x = 1 # filler code
 
 #TODO Run gcloud function from propmt
-output_from_GCloud = "Google cloud function complete."
-
 # To delete test variables language and message
 language = "Chinese"
 message = "Test message"
@@ -40,8 +39,6 @@ req = urllib2.Request(url, data, headers)
 url_response = urllib2.urlopen(req)
 translated_message = url_response.read()
 print(translated_message)
-#TODO Return response to Pepper
-output = output_from_GCloud
 
 #TODO Say to user
-tts.say(output)
+tts.say("Your translated message is " + translated_message)
