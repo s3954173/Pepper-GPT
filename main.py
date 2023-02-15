@@ -41,4 +41,4 @@ translated_message = url_response.read()
 print(translated_message)
 
 #TODO Say to user
-tts.say("Your translated message is " + translated_message)
+tts.say(message + " translated into " + language + " is " + translated_message)
