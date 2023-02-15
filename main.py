@@ -2,7 +2,6 @@ import os
 import urllib
 import urllib2
 import json
-import naoqi
 from naoqi import ALProxy
 
 api_key = os.getenv("OPENAI_API_KEY")
