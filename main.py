@@ -1,7 +1,9 @@
 import os
+import urllib
+import urllib2
+import json
 import naoqi
 from naoqi import ALProxy
-
 api_key = os.getenv("OPENAI_API_KEY")
 tts = ALProxy("ALTextToSpeech", "192.168.60.80", 9559)
 tts = ALProxy("ALSpeechToText", "192.168.60.80", 9559) # might not exist
@@ -22,6 +24,22 @@ while True:
 #TODO Run gcloud function from propmt
 output_from_GCloud = "Google cloud function complete."
 
+# To delete test variables language and message
+language = "Chinese"
+message = "Test message"
+
+url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
+values = {"api_key": api_key,
+        "language": language,
+        "message": message}
+headers = {"Authorization":"bearer $(gcloud auth print-identity-token)",
+        "Content-Type": "application/json"}
+
+data = json.dumps(values, indent=len(values))
+req = urllib2.Request(url, data, headers)
+url_response = urllib2.urlopen(req)
+translated_message = url_response.read()
+print(translated_message)
 #TODO Return response to Pepper
 output = output_from_GCloud
 
