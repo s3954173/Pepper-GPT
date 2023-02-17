@@ -4,16 +4,26 @@ import urllib2
 import json
 import naoqi
 from naoqi import ALProxy
+import time
 
 api_key = os.getenv("OPENAI_API_KEY")
 tts = ALProxy("ALTextToSpeech", "192.168.60.80", 9559)
-tts = ALProxy("ALSpeechToText", "192.168.60.80", 9559) # might not exist
+stt = ALProxy("ALSpeechRecognition", "192.168.60.80", 9559) # might not exist
+
+stt.setLanguage("English")
+
+with open(r"C:\Users\Sasha\Documents\Uni\Extension_Programming\Softbank\Pepper-Translator\english3.txt") as f:
+    words = f.read().splitlines()
+
+stt.setVocabulary(words)
 
 #TODO Pepper Listening
 speech_heard = False
 while True:
     tts.say("Hi, my name is Pepper. Can I help you with anything?")
-    # listen
+    stt.subscribe("Test_STT")
+    time.sleep(20)
+    stt.unsubscribe("Test_STT")
 
     #TODO Speech to text
     if speech_heard == True:
