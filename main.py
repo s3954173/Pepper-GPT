@@ -16,13 +16,31 @@ with open(r"C:\Users\Sasha\Documents\Uni\Extension_Programming\Softbank\Pepper-T
 
 stt.setVocabulary(words)
 
+
+
+
+
+############################################################################################################################
+
 #TODO Pepper Listening
-speech_heard = False
+start_time = time.time
 while True:
     tts.say("Hi, my name is Pepper. Can I help you with anything?")
     stt.subscribe("Test_STT")
-    time.sleep(20)
-    stt.unsubscribe("Test_STT")
+    while stt.SpeechDetected == True:
+        # listen
+        if stt.SpeechDetected == False:
+            stop_time = time.time
+
+    # when the user stops talking, the program waits for one second and if no more speech is heard, proceed to activating the google cloud function with whatever was heard
+
+
+    if (time.time - start_time)%10 == 0 and stt.SpeechDetected == True:
+        stt.unsubscribe("Test_STT")
+        break
+        # in a later update, the google cloud function may need to be called here
+    elif (time.time - start_time)%10==0:
+        continue
 
     #TODO Speech to text
     if speech_heard == True:
@@ -30,6 +48,12 @@ while True:
     else:
         # wait XX number of seconds
         x = 1 # filler code
+
+############################################################################################################################
+
+
+
+
 
 #TODO Run gcloud function from propmt
 # To delete test variables language and message
