@@ -1,7 +1,5 @@
 import os
-import urllib
-import urllib.request
-# import urllib2
+import requests
 import json
 import speech_recognition as sr
 
@@ -12,7 +10,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 r = sr.Recognizer()
 
 mic_name = 'Microphone (Arctis 5 Chat)' # for sasha system
-# mic_name = 'XXXXXXXXXXXXXX' # for bo system
+#mic_name = 'XXXXXXXXXXXXXX' # for bo system
 
 mic = sr.Microphone(device_index=sr.Microphone.list_microphone_names().index(mic_name))
 
@@ -37,11 +35,8 @@ except sr.RequestError as e:
 
 ######################### For Bo to work on this weekend ###########################
 #TODO Run gcloud function from propmt 
-# To delete test variables language and message
 language = "Chinese"
 message = text
-# message = "Test message"
-
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 values = {"api_key": api_key,
         "language": language,
@@ -49,13 +44,8 @@ values = {"api_key": api_key,
 headers = {"Authorization":"bearer $(gcloud auth print-identity-token)",
         "Content-Type": "application/json"}
 
-data = json.dumps(values, indent=len(values))
-req = urllib.request.Request(url, data, headers)
-url_response = urllib.request.urlopen(req)
-# req = urllib2.Request(url, data, headers)
-# url_response = urllib2.urlopen(req)
-translated_message = url_response.read()
-# print(translated_message)
+response = requests.post(url, headers=headers, json=values)
+translated_message = response.text
 
 #TODO Say to user
 print(message + " translated into " + language + " is " + translated_message)
