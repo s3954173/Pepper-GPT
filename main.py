@@ -2,7 +2,6 @@ import os
 import urllib
 import urllib2
 import json
-import naoqi
 from naoqi import ALProxy
 import time
 
