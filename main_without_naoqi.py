@@ -12,7 +12,7 @@ def speech_recognition(message):
 
     # Start listening
     try:
-        with sr.Microphone(device_index=None) as source:
+        with sr.Microphone(device_index=None) as source: # device_index=sr.Microphone.list_microphone_names().index(mic_name)
             print("Listening....")
             r.pause_threshold = 1
             audio = r.listen(source)
@@ -20,16 +20,6 @@ def speech_recognition(message):
         sr.WaitTimeoutError
 
     print("Processing...")
-
-    # try:
-    #     with sr.Microphone(device_index=sr.Microphone.list_microphone_names().index(mic_name)) as source:
-    #         print("Listening....")
-    #         r.pause_threshold = 1
-    #         audio = r.listen(source)
-    # except:
-    #     sr.WaitTimeoutError
-
-    # print("Processing...")
 
     try:
         text = r.recognize_google(audio)
