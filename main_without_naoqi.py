@@ -9,8 +9,9 @@ api_key = os.getenv("OPENAI_API_KEY")
 # Initialize recognizer
 r = sr.Recognizer()
 
-mic_name = 'Microphone (Arctis 5 Chat)' # for sasha system
-#mic_name = 'XXXXXXXXXXXXXX' # for bo system
+# mic_name = 'Microphone (Arctis 5 Chat)' # for sasha PC system
+mic_name = 'Microphone Array (Realtek High Definition Audio(SST))' # for sasha laptop system
+# mic_name = 'XXXXXXXXXXXXXX' # for bo system
 
 mic = sr.Microphone(device_index=sr.Microphone.list_microphone_names().index(mic_name))
 
