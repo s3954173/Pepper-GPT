@@ -10,14 +10,10 @@ api_key = os.getenv("OPENAI_API_KEY")
 r = sr.Recognizer()
 
 # mic_name = 'Microphone (Arctis 5 Chat)' # for sasha PC system
-mic_name = 'Microphone Array (Realtek High Definition Audio(SST))' # for sasha laptop system
-# mic_name = 'XXXXXXXXXXXXXX' # for bo system
-
-mic = sr.Microphone(device_index=sr.Microphone.list_microphone_names().index(mic_name))
 
 # Start listening
 try:
-    with sr.Microphone(device_index=sr.Microphone.list_microphone_names().index(mic_name)) as source:
+    with sr.Microphone(device_index=None) as source:
         print("Listening....")
         r.pause_threshold = 1
         audio = r.listen(source)
@@ -25,6 +21,16 @@ except:
     sr.WaitTimeoutError
 
 print("Processing...")
+
+# try:
+#     with sr.Microphone(device_index=sr.Microphone.list_microphone_names().index(mic_name)) as source:
+#         print("Listening....")
+#         r.pause_threshold = 1
+#         audio = r.listen(source)
+# except:
+#     sr.WaitTimeoutError
+
+# print("Processing...")
 
 try:
     text = r.recognize_google(audio)
@@ -35,8 +41,8 @@ except sr.RequestError as e:
     print("Could not request results; {0}".format(e))
 
 ######################### For Bo to work on this weekend ###########################
-#TODO Run gcloud function from propmt 
-language = "Chinese"
+# TODO Run gcloud function from propmt 
+language = "Indonesian"
 message = text
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 values = {"api_key": api_key,
