@@ -90,7 +90,7 @@ import json
 from naoqi import ALProxy
 import speech_recognition as sr
 
-tts = ALProxy("ALTextToSpeech", "192.168.60.80", 9559)
+tts = ALProxy("ALTextToSpeech", "169.254.99.231", 9559)
 
 def speech_recognition(message):
     tts.say(message)
@@ -142,4 +142,5 @@ for word in functionality.split():
         translated_message = response.text
 
         # Output to user
-        tts.say(message + " translated into " + language + " is " + translated_message) # has issues encoding chinese translations
+        string_output = str(message) + " translated into " + str(language) + " is " + str(translated_message.strip("\n"))
+        tts.say(string_output) # has issues encoding chinese translations
