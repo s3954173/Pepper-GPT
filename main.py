@@ -89,6 +89,12 @@ import requests
 import json
 from naoqi import ALProxy
 import speech_recognition as sr
+import gcloud as gc
+
+# Variables
+api_key = os.getenv("OPENAI_API_KEY")
+urls = {"gpt-translate": "https://callgpt-gemqjtz7eq-ts.a.run.app"}
+callgpt = gc.GPTfunc(api_key)
 
 tts = ALProxy("ALTextToSpeech", "192.168.60.80", 9559)
 
@@ -130,16 +136,7 @@ for word in functionality.split():
         language = speech_recognition("What language would you like your message translated into?")
 
         # Run gcloud function from propmt 
-        api_key = os.getenv("OPENAI_API_KEY")
-        url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
-        values = {"api_key": api_key,
-                "language": language,
-                "message": message}
-        headers = {"Authorization":"bearer $(gcloud auth print-identity-token)",
-                "Content-Type": "application/json"}
-
-        response = requests.post(url, headers=headers, json=values)
-        translated_message = response.text
+        translated_message = callgpt.translate(urls["gpt-translate"], language, message)
 
         # Output to user
         tts.say(message + " translated into " + language + " is " + translated_message) # has issues encoding chinese translations
