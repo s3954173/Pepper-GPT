@@ -10,7 +10,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 urls = {"gpt-translate": "https://callgpt-gemqjtz7eq-ts.a.run.app"}
 callgpt = gc.GPTfunc(api_key)
 
-tts = ALProxy("ALTextToSpeech", "169.254.99.231", 9559)
+tts = ALProxy("ALTextToSpeech", "169.254.67.126", 9559)
 
 def speech_recognition(message):
     tts.say(message)

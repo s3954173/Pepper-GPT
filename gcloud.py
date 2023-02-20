@@ -4,7 +4,6 @@ import json
 
 class GPTfunc:
     # Variables
-    headers = {"Authorization":"bearer $(gcloud auth print-identity-token)", "Content-Type": "application/json"}
     
     # Constructor
     def __init__(self, api_key):
@@ -12,10 +11,11 @@ class GPTfunc:
 
     # Methods
     def translate(self, url, language, message):
+        headers = {"Authorization":"bearer $(gcloud auth print-identity-token)", "Content-Type": "application/json"}
         values = {"api_key": self.api_key,
                 "language": language,
                 "message": message}
-        data - json.dumps(values, indent=len(values)) #Convert dictionary to JSON
+        data = json.dumps(values, indent=len(values)) #Convert dictionary to JSON
        
         # Call gcloud function
         req = urllib2.Request(url, data, headers) 
