@@ -14,31 +14,23 @@ tts = ALProxy("ALTextToSpeech", "169.254.67.126", 9559)
 
 def speech_recognition(message):
     tts.say(message)
-    # Initialize recognizer
-    r = sr.Recognizer()
 
-    # mic_name = 'Microphone (Arctis 5 Chat)' # for sasha PC system
+    r = sr.Recognizer()
 
     # Start listening
     try:
-        with sr.Microphone(device_index=None) as source: # device_index=sr.Microphone.list_microphone_names().index(mic_name)
-            # print("Listening....")
+        with sr.Microphone(device_index=None) as source:
             r.pause_threshold = 1
             audio = r.listen(source)
     except:
         sr.WaitTimeoutError
 
-    # print("Processing...")
-
     try:
         text = r.recognize_google(audio)
-        # print("You said: ", text)
         return text
     except sr.UnknownValueError:
-        # print("Could not understand audio")
         return None
     except sr.RequestError as e:
-        # print("Could not request results; {0}".format(e))
         return None
 
 # TODO Pepper Listening
