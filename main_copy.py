@@ -28,7 +28,7 @@ all_word_asr.setVocabulary(vocabulary, True)
 # functions
 # function_word_asr = ALProxy("ALSpeechRecognition", robot_IP, 9559)
 # function_word_asr.setLanguage("English")
-# functions = ["tell", "story", "explain", "translate"]  
+# functions = ["tell", "story", "explain", "translate", "define", "why is", "what is", "where is", "when is", "who is"]  
 # all_word_asr.setVocabulary(vocabulary, True)
 
 # def function_recog():
