@@ -11,7 +11,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 urls = {"gpt-translate": "https://callgpt-gemqjtz7eq-ts.a.run.app"}
 callgpt = gc.GPTfunc(api_key)
 
-robot_IP = "169.254.237.146"
+robot_IP = "169.254.215.43"
 
 tts = ALProxy("ALTextToSpeech", robot_IP, 9559)
 
