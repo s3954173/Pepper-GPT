@@ -10,33 +10,30 @@ class GPTfunc:
 
     # Methods
 
-    def callgcloud(url, data, self.headers):
+    def callgcloud(self, url, data):
         req = urllib2.Request(url, data, self.headers)
         url_response = urllib2.urlopen(req)
+        return url_response
 
 
-    def translate(self, url, language, message):
+    # def translate(self, url, language, message):
+    #     values = {"api_key": self.api_key,
+    #             "language": language,
+    #             "message": message}
+    #     data = json.dumps(values, indent=len(values)) #Convert dictionary to JSON
+
+    #     callgcloud(url,data)
+    #     # Call gcloud function
+    #     #req = urllib2.Request(url, data, self.headers) 
+    #     #url_response = urllib2.urlopen(req)
+
+    #     # Return translated message
+    #     return url_response.read()
+
+    def callgpt(self, prompt):
         values = {"api_key": self.api_key,
-                "language": language,
-                "message": message}
-        data = json.dumps(values, indent=len(values)) #Convert dictionary to JSON
-
-        callgcloud(url,data,self.headers)
-        # Call gcloud function
-        #req = urllib2.Request(url, data, self.headers) 
-        #url_response = urllib2.urlopen(req)
-
-        # Return translated message
-        return url_response.read()
-
-    def callgpt(self, url, prompt):
-        values = {"api_key": self.api_key,
-                "language": language,
                 "prompt": prompt}
         data = json.dumps(values, indent=len(values))
+        return data
+        
 
-        #Call gcloud function
-        #req = urllib2.Request(url, data, self.headers)
-        #url_response = urllib2.urlopen(req)
-
-        callgcloud(url,data,self.headers)
