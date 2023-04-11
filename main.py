@@ -10,19 +10,20 @@ api_key = os.getenv("OPENAI_API_KEY")
 urls = {"gpt-translate": "https://callgpt-gemqjtz7eq-ts.a.run.app"}
 callgpt = gc.GPTfunc(api_key)
 
-tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
+# tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
 
 def speech_recognition(message):
-    tts.say(message)
+    # tts.say(message)
     # Initialize recognizer
     r = sr.Recognizer()
 
     # mic_name = 'Microphone (Arctis 5 Chat)' # for sasha PC system
+    # mic_name = 'Headset Microphone (Realtek High Definition Audio(SST))'
 
     # Start listening
     try:
         with sr.Microphone(device_index=None) as source: # device_index=sr.Microphone.list_microphone_names().index(mic_name)
-            # print("Listening....")
+            print("Listening....")
             r.pause_threshold = 1
             audio = r.listen(source)
     except:
@@ -61,6 +62,8 @@ for word in functionality.split():
         topic = speech_recognition("What would you like the story to be about?")
 
         prompt = "Tell me a story about {topic}."
+
+        print("telling a story")
 
     elif word.lower() == "explain":
         # Explain functionality
