@@ -49,23 +49,51 @@ for word in functionality.split():
         message = speech_recognition("What message would you like me to translate?")
         language = speech_recognition("What language would you like your message translated into?")
 
-        # Run gcloud function from propmt 
+        # "Translate {message} into {language}."
         translated_message = callgpt.translate(urls["gpt-translate"], language, message)
 
         # Output to user
         string_output = str(message) + " translated into " + str(language) + " is " + str(translated_message.strip("\n"))
         tts.say(string_output) # has issues encoding chinese translations
+
     elif word.lower() == "story":
         # Story functionality
         topic = speech_recognition("What would you like the story to be about?")
 
-        story = callgpt.story()
+        prompt = "Tell me a story about {topic}."
+
     elif word.lower() == "explain":
         # Explain functionality
         topic = speech_recognition("What would you like me to explain?")
 
-        story = callgpt.explain()
+        prompt = "Explain {topic} in simple terms."
+
     elif word.lower() == "who":
         # Who is functionality
+        topic = speech_recognition("Who would you like me to tell you about?")
         
-        story = callgpt.who()
+        prompt = "Who is {topic}?"
+
+    elif word.lower() == "what":
+        # What is functionality
+        topic = speech_recognition("What would you like me to tell you about?")
+        
+        prompt = "What is {topic}?"
+
+    elif word.lower() == "where":
+        # Where is functionality
+        topic = speech_recognition("Where would you like me to tell you about?")
+        
+        prompt = "Where is {topic}?"
+
+    elif word.lower() == "when":
+        # When is functionality
+        topic = speech_recognition("When would you like me to know about?")
+        
+        prompt = "When is {topic}?"
+
+    elif word.lower() == "why":
+        # Why is functionality
+        topic = speech_recognition("What would you like the know the why of?")
+        
+        prompt = "When is {topic}?"
