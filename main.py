@@ -7,7 +7,7 @@ import gcloud as gc
 
 # Variables
 api_key = os.getenv("OPENAI_API_KEY")
-urls = {"gpt-translate": "https://callgpt-gemqjtz7eq-ts.a.run.app"}
+url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
 # tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
@@ -42,6 +42,14 @@ def speech_recognition(message):
         # print("Could not request results; {0}".format(e))
         return None
 
+# Send prompt to callgpt gcloud function and pepper outputs message
+def OutputMessage(prompt):
+    data = gc.callgpt(prompt)
+    message = gc.callgcloud(url,data)
+    print(message)
+    # Uncomment below for pepper TTS
+    #tts.say(message)
+
 # TODO Pepper Listening
 functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
 for word in functionality.split():
@@ -57,6 +65,9 @@ for word in functionality.split():
         string_output = str(message) + " translated into " + str(language) + " is " + str(translated_message.strip("\n"))
         tts.say(string_output) # has issues encoding chinese translations
 
+        # Calls output function
+        OutputMessage(prompt)
+
     elif word.lower() == "story":
         # Story functionality
         topic = speech_recognition("What would you like the story to be about?")
@@ -65,11 +76,17 @@ for word in functionality.split():
 
         print("telling a story")
 
+        # Calls output function
+        OutputMessage(prompt)
+
     elif word.lower() == "explain":
         # Explain functionality
         topic = speech_recognition("What would you like me to explain?")
 
         prompt = "Explain {topic} in simple terms."
+
+        # Calls output function
+        OutputMessage(prompt)
 
     elif word.lower() == "who":
         # Who is functionality
@@ -77,11 +94,17 @@ for word in functionality.split():
         
         prompt = "Who is {topic}?"
 
+        # Calls output function
+        OutputMessage(prompt)
+
     elif word.lower() == "what":
         # What is functionality
         topic = speech_recognition("What would you like me to tell you about?")
         
         prompt = "What is {topic}?"
+
+        # Calls output function
+        OutputMessage(prompt)
 
     elif word.lower() == "where":
         # Where is functionality
@@ -89,14 +112,29 @@ for word in functionality.split():
         
         prompt = "Where is {topic}?"
 
+        # Calls output function
+        OutputMessage(prompt)
+
     elif word.lower() == "when":
         # When is functionality
         topic = speech_recognition("When would you like me to know about?")
         
         prompt = "When is {topic}?"
 
+        # Calls output function
+        OutputMessage(prompt)
+
     elif word.lower() == "why":
         # Why is functionality
         topic = speech_recognition("What would you like the know the why of?")
         
         prompt = "When is {topic}?"
+
+        # Calls output function
+        OutputMessage(prompt)
+        
+
+
+
+
+
