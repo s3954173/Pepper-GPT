@@ -55,3 +55,17 @@ for word in functionality.split():
         # Output to user
         string_output = str(message) + " translated into " + str(language) + " is " + str(translated_message.strip("\n"))
         tts.say(string_output) # has issues encoding chinese translations
+    elif word.lower() == "story":
+        # Story functionality
+        topic = speech_recognition("What would you like the story to be about?")
+
+        story = callgpt.story()
+    elif word.lower() == "explain":
+        # Explain functionality
+        topic = speech_recognition("What would you like me to explain?")
+
+        story = callgpt.explain()
+    elif word.lower() == "who":
+        # Who is functionality
+        
+        story = callgpt.who()
