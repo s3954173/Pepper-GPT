@@ -13,7 +13,7 @@ class GPTfunc:
     def callgcloud(self, url, data):
         req = urllib2.Request(url, data, self.headers)
         url_response = urllib2.urlopen(req)
-        return url_response
+        return url_response.read()
 
 
     # def translate(self, url, language, message):

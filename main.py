@@ -44,7 +44,7 @@ def speech_recognition(message):
         return None
 
 # Send prompt to callgpt gcloud function and pepper outputs message
-def OutputMessage(prompt):
+def OutputMessage(callgpt,prompt):
     data = callgpt.callgpt(prompt)
     message = callgpt.callgcloud(url,data)
     return message
