@@ -44,7 +44,7 @@ def speech_recognition(message):
         return None
 
 # Send prompt to callgpt gcloud function and pepper outputs message
-def OutputMessage(prompt):
+def OutputMessage(chatGPT, prompt):
     data = chatGPT.callgpt(prompt)
     message = chatGPT.callgcloud(url,data)
     print(message)
@@ -68,7 +68,7 @@ for index, word in enumerate(words):
         # tts.say(string_output) # has issues encoding chinese translations
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "story":
         # Story functionality
@@ -79,7 +79,7 @@ for index, word in enumerate(words):
         print("telling a story")
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "explain":
         # Explain functionality
@@ -88,7 +88,7 @@ for index, word in enumerate(words):
         prompt = "Explain {topic} in simple terms."
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "who":
         # Who is functionality
@@ -97,7 +97,7 @@ for index, word in enumerate(words):
         prompt = "Who is {topic}?"
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "what":
         # What is functionality
@@ -106,7 +106,7 @@ for index, word in enumerate(words):
         prompt = "What is {topic}?"
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "where":
         # Where is functionality
@@ -115,7 +115,7 @@ for index, word in enumerate(words):
         prompt = "Where is {topic}?"
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "when":
         # When is functionality
@@ -124,7 +124,7 @@ for index, word in enumerate(words):
         prompt = "When is {topic}?"
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
 
     elif word.lower() == "why":
         # Why is functionality
@@ -135,7 +135,7 @@ for index, word in enumerate(words):
         # prompt = "When is {topic}?"
 
         # Calls output function
-        OutputMessage(prompt)
+        OutputMessage(chatGPT,prompt)
         
 
 
