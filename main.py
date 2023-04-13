@@ -23,6 +23,7 @@ def speech_recognition(message):
     # Start listening
     try:
         with sr.Microphone(device_index=None) as source: # device_index=sr.Microphone.list_microphone_names().index(mic_name)
+            r.adjust_for_ambient_noise(source)
             print("Listening....")
             r.pause_threshold = 1
             audio = r.listen(source)
@@ -52,7 +53,8 @@ def OutputMessage(prompt):
 
 # TODO Pepper Listening
 functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
-for word in functionality.split():
+words = functionality.split()
+for index, word in enumerate(words):
     if word.lower() == "translate":
         # Translate functionality
         message = speech_recognition("What message would you like me to translate?")
@@ -62,8 +64,8 @@ for word in functionality.split():
         translated_message = callgpt.translate(urls["gpt-translate"], language, message)
 
         # Output to user
-        string_output = str(message) + " translated into " + str(language) + " is " + str(translated_message.strip("\n"))
-        tts.say(string_output) # has issues encoding chinese translations
+        # string_output = str(message) + " translated into " + str(language) + " is " + str(translated_message.strip("\n"))
+        # tts.say(string_output) # has issues encoding chinese translations
 
         # Calls output function
         OutputMessage(prompt)
@@ -126,9 +128,11 @@ for word in functionality.split():
 
     elif word.lower() == "why":
         # Why is functionality
-        topic = speech_recognition("What would you like the know the why of?")
+        prompt = ' '.join(words[index:])
+
+        # topic = speech_recognition("What would you like the know the why of?")
         
-        prompt = "When is {topic}?"
+        # prompt = "When is {topic}?"
 
         # Calls output function
         OutputMessage(prompt)
