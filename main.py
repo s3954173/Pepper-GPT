@@ -11,7 +11,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
-tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
+tts = ALProxy("ALTextToSpeech", "169.254.247.64", 9559)
 
 def speech_recognition(message):
     print(message)
@@ -76,13 +76,28 @@ while listening:
                 prompt_set = False
                 word_list = words[index:]
                 for idx, value in enumerate(word_list):
-                    if value == "about" and word_list(idx+1) != "something":
-                        prompt = functionality
-                        prompt_set = True
-                        break
+                    if value == "about":
+                        word_list2 = words[idx:]
+                        something = False
+                        for thing in word_list2:
+                            if thing == "something":
+                                something = True
+                                break
+                        if something == False:
+                            info = []
+                            for first_token in words[:index]:
+                                info.append(first_token)
+                            info.append("short")
+                            for second_token in words[index:]:
+                                info.append(second_token)
+                                prompt = ' '.join(info)
+                                print(prompt)
+                            prompt_set = True
+                        else:
+                            break
                 if prompt_set == False:
                     topic = speech_recognition("What would you like the story to be about?")
-                    prompt = "Tell me a story about {}.".format(topic)
+                    prompt = "Tell me a short story about {}.".format(topic)
                 tts.say("Ok, let me think for a moment.")
 
                 # Calls output function
