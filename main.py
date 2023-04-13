@@ -8,7 +8,7 @@ import gcloud as gc
 # Variables
 api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
-callgpt = gc.GPTfunc(api_key)
+chatGPT = gc.GPTfunc(api_key)
 
 # tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
 
@@ -45,8 +45,8 @@ def speech_recognition(message):
 
 # Send prompt to callgpt gcloud function and pepper outputs message
 def OutputMessage(prompt):
-    data = gc.callgpt(prompt)
-    message = gc.callgcloud(url,data)
+    data = chatGPT.callgpt(prompt)
+    message = chatGPT.callgcloud(url,data)
     print(message)
     # Uncomment below for pepper TTS
     #tts.say(message)
