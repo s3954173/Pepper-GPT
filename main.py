@@ -11,11 +11,11 @@ api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
-# tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
+tts = ALProxy("ALTextToSpeech", "192.168.152.13", 9559)
 
 def speech_recognition(message):
     print(message)
-    # tts.say(message)
+    tts.say(message)
     # Initialize recognizer
     r = sr.Recognizer()
 
@@ -54,122 +54,147 @@ def OutputMessage(callgpt,prompt):
 # TODO Pepper Listening
 listening = True
 while listening:
-    try {
-        
-    } except {time.sleep(3)}
-    functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
-    words = functionality.split()
-    for index, word in enumerate(words):
-        if word.lower() == "translate":
-            # Translate functionality
-            message = speech_recognition("What message would you like me to translate?")
-            language = speech_recognition("What language would you like your message translated into?")
+    time.sleep(5)
+    try:
+        functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
+        words = functionality.split()
+        for index, word in enumerate(words):
+            if word.lower() == "translate":
+                # Translate functionality
+                message = speech_recognition("What message would you like me to translate?")
+                language = speech_recognition("What language would you like your message translated into?")
 
-            prompt = "Translate {} into {}.".format(message, language)
+                prompt = "Translate {} into {}.".format(message, language)
 
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print("{} translated into {} is {}.".format(message, language, output))
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print("{} translated into {} is {}.".format(message, language, output))
+                tts.say(str("{} translated into {} is {}.".format(message, language, output)))
 
-        elif word.lower() == "story":
-            # Story functionality
-            topic = speech_recognition("What would you like the story to be about?")
+            elif word.lower() == "story":
+                # Story functionality
+                prompt_set = False
+                word_list = words[index:]
+                for idx, value in enumerate(word_list):
+                    if value == "about" and word_list(idx+1) != "something":
+                        prompt = functionality
+                        prompt_set = True
+                        break
+                if prompt_set == False:
+                    topic = speech_recognition("What would you like the story to be about?")
+                    prompt = "Tell me a story about {}.".format(topic)
+                tts.say("Ok, let me think for a moment.")
 
-            prompt = "Tell me a story about {topic}."
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
 
-            print("telling a story")
-
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
-
-        elif word.lower() == "explain":
-            # Explain functionality
-            for value in words[index:]:
-                if value == "something":
-                    topic = speech_recognition("What would you like me to explain?")
-                    prompt = "Explain {topic} in simple terms."
-                else:
+            elif word.lower() == "explain":
+                # Explain functionality
+                prompt_set = False
+                for value in words[index:]:
+                    if value == "something":
+                        topic = speech_recognition("What would you like me to explain?")
+                        prompt = "Explain {} in simple terms.".format(topic)
+                        prompt_set = True
+                        break
+                if prompt_set == False:
                     prompt = ' '.join(words[index:])
 
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
 
-        elif word.lower() == "who":
-            # Who is functionality
-            for value in words[index:]:
-                if value == "someone":
-                    topic = speech_recognition("Who would you like me to tell you about?")
-                    prompt = "Who is {topic}?"
-                else:
+            elif word.lower() == "who":
+                # Who is functionality
+                prompt_set = False
+                for value in words[index:]:
+                    if value == "someone":
+                        topic = speech_recognition("Who would you like me to tell you about?")
+                        prompt = "Who is {}?".format(topic)
+                        prompt_set = True
+                        break
+                if prompt_set == False:
                     prompt = ' '.join(words[index:])
 
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
 
-        elif word.lower() == "what":
-            # What is functionality
-            for value in words[index:]:
-                if value == "something":
-                    topic = speech_recognition("What would you like me to explain?")
-                    prompt = "What is {topic}?"
-                else:
+            elif word.lower() == "what":
+                # What is functionality
+                prompt_set = False
+                for value in words[index:]:
+                    if value == "something":
+                        topic = speech_recognition("What would you like me to explain?")
+                        prompt = "What is {}?".format(topic)
+                        prompt_set = True
+                        break
+                if prompt_set == False:
                     prompt = ' '.join(words[index:])
 
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
 
-        elif word.lower() == "where":
-            # # Where is functionality
-            prompt_set = False
-            for value in words[index:]:
-                if value == "something":
-                    topic = speech_recognition("Where would you like me to tell you about?")
-                    prompt = "Where is {}?".format(topic)
-                    prompt_set = True
-                    break
-            if prompt_set == False:
+            elif word.lower() == "where":
+                # # Where is functionality
+                prompt_set = False
+                for value in words[index:]:
+                    if value == "something":
+                        topic = speech_recognition("Where would you like me to tell you about?")
+                        prompt = "Where is {}?".format(topic)
+                        prompt_set = True
+                        break
+                if prompt_set == False:
+                    prompt = ' '.join(words[index:])
+
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
+
+            elif word.lower() == "when":
+                # When is functionality
+                prompt_set = False
+                for value in words[index:]:
+                    if value == "something":
+                        topic = speech_recognition("When would you like to know about?")
+                        prompt = "When is {}?".format(topic)
+                        prompt_set = True
+                        break
+                if prompt_set == False:
+                    prompt = ' '.join(words[index:])
+
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
+
+            elif word.lower() == "why":
+                # Why is functionality
+                prompt_set = False
+                for value in words[index:]:
+                    if value == "something":
+                        topic = speech_recognition("What would you like to know about?")
+                        prompt = "Why is {}?".format(topic)
+                        prompt_set = True
+                        break
+                if prompt_set == False:
+                    prompt = ' '.join(words[index:])
                 prompt = ' '.join(words[index:])
 
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
-
-        elif word.lower() == "when":
-            # When is functionality
-            prompt_set = False
-            for value in words[index:]:
-                if value == "something":
-                    topic = speech_recognition("When would you like to know about?")
-                    prompt = "When is {}?".format(topic)
-                    prompt_set = True
-                    break
-            if prompt_set == False:
-                prompt = ' '.join(words[index:])
-
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
-
-        elif word.lower() == "why":
-            # Why is functionality
-            prompt_set = False
-            for value in words[index:]:
-                if value == "something":
-                    topic = speech_recognition("What would you like to know about?")
-                    prompt = "Why is {}?".format(topic)
-                    prompt_set = True
-                    break
-            if prompt_set == False:
-                prompt = ' '.join(words[index:])
-            prompt = ' '.join(words[index:])
-
-            # Calls output function
-            output = OutputMessage(callgpt,prompt)
-            print(output)
+                # Calls output function
+                output = OutputMessage(callgpt,prompt)
+                print(output)
+                tts.say(str(output))
+    except:
+        time.sleep(5)
+    
         
 
 
