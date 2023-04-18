@@ -11,11 +11,11 @@ api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
-tts = ALProxy("ALTextToSpeech", "169.254.247.64", 9559)
+# tts = ALProxy("ALTextToSpeech", "169.254.247.64", 9559)
 
 def speech_recognition(message):
     print(message)
-    tts.say(message)
+    # tts.say(message)
     # Initialize recognizer
     r = sr.Recognizer()
 
@@ -51,6 +51,19 @@ def OutputMessage(callgpt,prompt):
     message = callgpt.callgcloud(url,data)
     return message
 
+# Pepper functions
+def translate():
+    # Translate functionality
+        message = speech_recognition("What message would you like me to translate?")
+        language = speech_recognition("What language would you like your message translated into?")
+
+        prompt = "Translate {} into {}.".format(message, language)
+
+        # Calls output function
+        output = OutputMessage(callgpt,prompt)
+        print("{} translated into {} is {}.".format(message, language, output))
+        # tts.say(str("{} translated into {} is {}.".format(message, language, output)))
+
 # TODO Pepper Listening
 listening = True
 while listening:
@@ -60,16 +73,17 @@ while listening:
         words = functionality.split()
         for index, word in enumerate(words):
             if word.lower() == "translate":
-                # Translate functionality
-                message = speech_recognition("What message would you like me to translate?")
-                language = speech_recognition("What language would you like your message translated into?")
+                translate()
+                # # Translate functionality
+                # message = speech_recognition("What message would you like me to translate?")
+                # language = speech_recognition("What language would you like your message translated into?")
 
-                prompt = "Translate {} into {}.".format(message, language)
+                # prompt = "Translate {} into {}.".format(message, language)
 
-                # Calls output function
-                output = OutputMessage(callgpt,prompt)
-                print("{} translated into {} is {}.".format(message, language, output))
-                tts.say(str("{} translated into {} is {}.".format(message, language, output)))
+                # # Calls output function
+                # output = OutputMessage(callgpt,prompt)
+                # print("{} translated into {} is {}.".format(message, language, output))
+                # tts.say(str("{} translated into {} is {}.".format(message, language, output)))
 
             elif word.lower() == "story":
                 # Story functionality
