@@ -5,6 +5,7 @@ from naoqi import ALProxy
 import speech_recognition as sr
 import gcloud as gc
 import time
+import sys
 
 # Variables
 api_key = os.getenv("OPENAI_API_KEY")
@@ -51,9 +52,17 @@ def OutputMessage(callgpt,prompt):
     message = callgpt.callgcloud(url,data)
     return message
 
+# TTS output message
+def OutputTTS(callgpt, prompt):
+    output = OutputMessage(callgpt,prompt)
+    print(output)
+    tts.say(str(output))
 
-# Pepper functions
-def translate(callgpt):
+
+# Pepper functions/variables
+functionlist = ["translate", "story", "explain", "who", "what", "where", "when", "why"]
+
+def translate(callgpt,words):
     # Translate functionality
         message = speech_recognition("What message would you like me to translate?")
         language = speech_recognition("What language would you like your message translated into?")
@@ -96,9 +105,7 @@ def story(callgpt, words):
     tts.say("Ok, let me think for a moment.")
 
     # Calls output function
-    output = OutputMessage(callgpt,prompt)
-    print(output)
-    tts.say(str(output))
+    OutputTTS(callgpt,prompt)
 
 
 
@@ -133,9 +140,7 @@ def who(callgpt, words):
         prompt = ' '.join(words[index:])
 
     # Calls output function
-    output = OutputMessage(callgpt,prompt)
-    print(output)
-    tts.say(str(output))
+    OutputTTS(callgpt,prompt)
 
 
 def what(callgpt, words):
@@ -149,6 +154,9 @@ def what(callgpt, words):
             break
     if prompt_set == False:
         prompt = ' '.join(words[index:])
+
+     # Calls output function
+    OutputTTS(callgpt,prompt)
 
 
 def where(callgpt, words):
@@ -164,9 +172,7 @@ def where(callgpt, words):
         prompt = ' '.join(words[index:])
 
     # Calls output function
-    output = OutputMessage(callgpt,prompt)
-    print(output)
-    tts.say(str(output))
+    OutputTTS(callgpt,prompt)
 
 
 def when(callgpt, words):
@@ -182,9 +188,7 @@ def when(callgpt, words):
         prompt = ' '.join(words[index:])
 
     # Calls output function
-    output = OutputMessage(callgpt,prompt)
-    print(output)
-    tts.say(str(output))
+    OutputTTS(callgpt,prompt)
 
 
 def why(callgpt, words):
@@ -201,9 +205,9 @@ def why(callgpt, words):
     prompt = ' '.join(words[index:])
 
     # Calls output function
-    output = OutputMessage(callgpt,prompt)
-    print(output)
-    tts.say(str(output))
+    OutputTTS(callgpt,prompt)
+
+
 
 
 
@@ -215,30 +219,36 @@ while listening:
         functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
         words = functionality.split()
         for index, word in enumerate(words):
-            if word.lower() == "translate":
-                translate()
+            if word.lower() in functionlist:
+                pepper_function = word.lower() + "(callgpt,words)"
+                pepper_function = eval(pepper_function)
 
-            elif word.lower() == "story":
-                story()
+
+            # if word.lower() == "translate":
+            #     translate(callgpt)
+
+            # elif word.lower() == "story":
+            #     story(callgpt,words)
               
 
-            elif word.lower() == "explain":
-                explain()
+            # elif word.lower() == "explain":
+            #     explain(callgpt,words)
 
-            elif word.lower() == "who":
-                who()
+            # elif word.lower() == "who":
+            #     who(callgpt,words)
 
-            elif word.lower() == "what":
-                what()
+            # elif word.lower() == "what":
+            #     what(callgpt,words)
 
-            elif word.lower() == "where":
-                where()
+            # elif word.lower() == "where":
+            #     where(callgpt,words)
 
-            elif word.lower() == "when":
-                when()
+            # elif word.lower() == "when":
+            #     when(callgpt,words)
 
-            elif word.lower() == "why":
-                why()
+            # elif word.lower() == "why":
+            #     why(callgpt,words)
+      
     except:
         time.sleep(5)
     
