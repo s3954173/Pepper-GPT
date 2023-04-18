@@ -11,7 +11,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
-tts = ALProxy("ALTextToSpeech", "169.254.247.64", 9559)
+tts = ALProxy("ALTextToSpeech", "192.168.111.80", 9559)
 
 def speech_recognition(message):
     print(message)
@@ -51,8 +51,9 @@ def OutputMessage(callgpt,prompt):
     message = callgpt.callgcloud(url,data)
     return message
 
+
 # Pepper functions
-def translate():
+def translate(callgpt):
     # Translate functionality
         message = speech_recognition("What message would you like me to translate?")
         language = speech_recognition("What language would you like your message translated into?")
@@ -65,7 +66,7 @@ def translate():
         tts.say(str("{} translated into {} is {}.".format(message, language, output)))
 
 
-def story():
+def story(callgpt, words):
      # Story functionality
     prompt_set = False
     word_list = words[index:]
@@ -101,7 +102,7 @@ def story():
 
 
 
-def explain():
+def explain(callgpt, words):
     # Explain functionality
     prompt_set = False
     for value in words[index:]:
@@ -119,7 +120,7 @@ def explain():
     tts.say(str(output))
 
 
-def who():
+def who(callgpt, words):
     # Who is functionality
     prompt_set = False
     for value in words[index:]:
@@ -137,7 +138,7 @@ def who():
     tts.say(str(output))
 
 
-def what():
+def what(callgpt, words):
     # What is functionality
     prompt_set = False
     for value in words[index:]:
@@ -150,7 +151,7 @@ def what():
         prompt = ' '.join(words[index:])
 
 
-def where():
+def where(callgpt, words):
     # # Where is functionality
     prompt_set = False
     for value in words[index:]:
@@ -168,7 +169,7 @@ def where():
     tts.say(str(output))
 
 
-def when():
+def when(callgpt, words):
     # When is functionality
     prompt_set = False
     for value in words[index:]:
@@ -186,7 +187,7 @@ def when():
     tts.say(str(output))
 
 
-def why():
+def why(callgpt, words):
     # Why is functionality
     prompt_set = False
     for value in words[index:]:
