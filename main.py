@@ -214,7 +214,7 @@ def why(callgpt, words):
 # TODO Pepper Listening
 listening = True
 while listening:
-    time.sleep(5)
+    time.sleep(3)
     try:
         functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
         words = functionality.split()
@@ -222,35 +222,8 @@ while listening:
             if word.lower() in functionlist:
                 pepper_function = word.lower() + "(callgpt,words)"
                 pepper_function = eval(pepper_function)
-
-
-            # if word.lower() == "translate":
-            #     translate(callgpt)
-
-            # elif word.lower() == "story":
-            #     story(callgpt,words)
-              
-
-            # elif word.lower() == "explain":
-            #     explain(callgpt,words)
-
-            # elif word.lower() == "who":
-            #     who(callgpt,words)
-
-            # elif word.lower() == "what":
-            #     what(callgpt,words)
-
-            # elif word.lower() == "where":
-            #     where(callgpt,words)
-
-            # elif word.lower() == "when":
-            #     when(callgpt,words)
-
-            # elif word.lower() == "why":
-            #     why(callgpt,words)
-      
     except:
-        time.sleep(5)
+        time.sleep(3)
     
         
 
