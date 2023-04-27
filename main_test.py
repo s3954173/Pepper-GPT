@@ -5,17 +5,18 @@ from naoqi import ALProxy
 import speech_recognition as sr
 import gcloud as gc
 import time
+import threading
 
 # Variables
 api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
-# tts = ALProxy("ALTextToSpeech", "169.254.247.64", 9559)
+tts = ALProxy("ALTextToSpeech", "169.254.182.128", 9559)
 
 def speech_recognition(message):
     print(message)
-    # tts.say(message)
+    tts.say(message)
     # Initialize recognizer
     r = sr.Recognizer()
 
@@ -28,7 +29,7 @@ def speech_recognition(message):
             r.adjust_for_ambient_noise(source)
             print("Listening....")
             r.pause_threshold = 1 #..........................................
-            audio = r.listen(source, timeout=5)
+            audio = r.listen(source)
     except:
         sr.WaitTimeoutError
 
@@ -68,7 +69,7 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print("{} translated into {} is {}.".format(message, language, output))
-                # tts.say(str("{} translated into {} is {}.".format(message, language, output)))
+                tts.say(str("{} translated into {} is {}.".format(message, language, output)))
 
             elif word.lower() == "story":
                 # Story functionality
@@ -98,12 +99,12 @@ while listening:
                     topic = speech_recognition("What would you like the story to be about?")
                     prompt = "Tell me a short story about {}.".format(topic)
                 print("Ok, let me think for a moment.")
-                # tts.say("Ok, let me think for a moment.")
+                tts.say("Ok, let me think for a moment.")
 
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
 
             elif word.lower() == "explain":
                 # Explain functionality
@@ -120,7 +121,7 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
 
             elif word.lower() == "who":
                 # Who is functionality
@@ -137,7 +138,7 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
 
             elif word.lower() == "what":
                 # What is functionality
@@ -154,7 +155,7 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
 
             elif word.lower() == "where":
                 # # Where is functionality
@@ -171,7 +172,7 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
 
             elif word.lower() == "when":
                 # When is functionality
@@ -188,7 +189,7 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
 
             elif word.lower() == "why":
                 # Why is functionality
@@ -206,10 +207,12 @@ while listening:
                 # Calls output function
                 output = OutputMessage(callgpt,prompt)
                 print(output)
-                # tts.say(str(output))
+                tts.say(str(output))
+            else:
+                tts.say("Sorry, I don't understand.")
     except Exception as e:
     # handle the exception
+        tts.say("Sorry, I don't understand.")
         print("An error occurred: ", type(e).__name__)
-    # except:
-    #     print("Something went wrong.")
+        print(str(e))
     time.sleep(3)
