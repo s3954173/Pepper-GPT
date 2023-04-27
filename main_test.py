@@ -12,7 +12,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 url = "https://callgpt-gemqjtz7eq-ts.a.run.app"
 callgpt = gc.GPTfunc(api_key)
 
-tts = ALProxy("ALTextToSpeech", "169.254.182.128", 9559)
+tts = ALProxy("ALTextToSpeech", "169.254.66.210", 9559)
 
 def speech_recognition(message):
     print(message)
@@ -58,8 +58,10 @@ while listening:
     try:
         functionality = speech_recognition("Hi, I'm Pepper. What can I do for you today?")
         words = functionality.split()
+        function_found = False
         for index, word in enumerate(words):
             if word.lower() == "translate":
+                function_found = True
                 # Translate functionality
                 message = speech_recognition("What message would you like me to translate?")
                 language = speech_recognition("What language would you like your message translated into?")
@@ -72,6 +74,7 @@ while listening:
                 tts.say(str("{} translated into {} is {}.".format(message, language, output)))
 
             elif word.lower() == "story":
+                function_found = True
                 # Story functionality
                 prompt_set = False
                 word_list = words[index:]
@@ -107,6 +110,7 @@ while listening:
                 tts.say(str(output))
 
             elif word.lower() == "explain":
+                function_found = True
                 # Explain functionality
                 prompt_set = False
                 for value in words[index:]:
@@ -124,6 +128,7 @@ while listening:
                 tts.say(str(output))
 
             elif word.lower() == "who":
+                function_found = True
                 # Who is functionality
                 prompt_set = False
                 for value in words[index:]:
@@ -141,6 +146,7 @@ while listening:
                 tts.say(str(output))
 
             elif word.lower() == "what":
+                function_found = True
                 # What is functionality
                 prompt_set = False
                 for value in words[index:]:
@@ -158,6 +164,7 @@ while listening:
                 tts.say(str(output))
 
             elif word.lower() == "where":
+                function_found = True
                 # # Where is functionality
                 prompt_set = False
                 for value in words[index:]:
@@ -175,6 +182,7 @@ while listening:
                 tts.say(str(output))
 
             elif word.lower() == "when":
+                function_found = True
                 # When is functionality
                 prompt_set = False
                 for value in words[index:]:
@@ -192,6 +200,7 @@ while listening:
                 tts.say(str(output))
 
             elif word.lower() == "why":
+                function_found = True
                 # Why is functionality
                 prompt_set = False
                 for value in words[index:]:
@@ -208,8 +217,8 @@ while listening:
                 output = OutputMessage(callgpt,prompt)
                 print(output)
                 tts.say(str(output))
-            else:
-                tts.say("Sorry, I don't understand.")
+        if function_found == False:
+            tts.say("Sorry, I don't understand.")
     except Exception as e:
     # handle the exception
         tts.say("Sorry, I don't understand.")
